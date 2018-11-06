@@ -29,7 +29,7 @@ func (srv *Server) mainRouter(c *gin.Context) {
 	session.Save()
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello Dude",
+		"message": "Hello Man",
 		"count":   count,
 	})
 }
