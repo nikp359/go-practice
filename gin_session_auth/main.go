@@ -11,30 +11,40 @@ import (
 type Server struct {
 	SessionStore memstore.Store
 	Engine       *gin.Engine
+	User         *User
+}
+
+type User struct {
+	name        string
+	password    string
+	accessToken string
 }
 
 func (srv *Server) mainRouter(c *gin.Context) {
 	session := sessions.Default(c)
-	var count int
-	v := session.Get("count")
+	v := session.Get("accessToken")
 	if v == nil {
-		count = 0
-	} else {
-		count = v.(int)
-		count++
+		c.JSON(http.StatusForbidden, gin.H{
+			"message": "No auth",
+		})
+		return
 	}
-	session.Set("count", count)
-	session.Save()
+	//session.Set("count", count)
+	//session.Save()
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello Man",
-		"count":   count,
+		"message":     "Hello Man",
+		"accessToken": v,
 	})
 }
 
-func loginRouter(c *gin.Context) {
+func (srv *Server) loginRouter(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Set("accessToken", srv.User.accessToken)
+	session.Save()
 	c.JSON(http.StatusOK, gin.H{
-		"action": "login",
+		"action":  "login",
+		"session": session,
 	})
 }
 
@@ -49,12 +59,17 @@ func main() {
 	var srv Server
 
 	srv.SessionStore = memstore.NewStore([]byte("secretKey"))
+	srv.User = &User{
+		name:        "Nikita",
+		password:    "lalala",
+		accessToken: "secret",
+	}
 
 	router := gin.Default()
 
 	router.Use(sessions.Sessions("access", srv.SessionStore))
 	router.GET("/", srv.mainRouter)
-	router.POST("/login", loginRouter)
+	router.GET("/login", srv.loginRouter)
 	router.POST("/logout", logoutRouter)
 
 	srv.Engine = router
