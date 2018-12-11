@@ -7,15 +7,19 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	. "github.com/smartystreets/goconvey/convey"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetRoot(t *testing.T) {
 	s := prep()
-	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/", nil)
-	s.Engine.ServeHTTP(w, req)
-	assert.Equal(t, 200, w.Code)
+	Convey("Empty GET to / should return 200 OK", t, func() {
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("GET", "/", nil)
+		s.Engine.ServeHTTP(w, req)
+		So(w.Code, ShouldEqual, http.StatusOK)
+		//assert.Equal(t, 200, w.Code)
+	})
 }
 
 func TestGetColors(t *testing.T) {
