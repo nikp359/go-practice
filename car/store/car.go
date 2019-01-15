@@ -1,16 +1,17 @@
 package store
 
+import (
+	"github.com/jinzhu/gorm"
+)
+
+//Car Машинки
 type Car struct {
-	Name  string `json:"name"`
-	Color string `json:"color"`
-	Price int    `json:"price"`
+	gorm.Model
+	Name   string `json:"name"`
+	Brand  string `json:"color"`
+	Engine string `json:"engine"`
+	Price  int    `json:"price"`
 }
 
+//Cars Много машинок
 type Cars []Car
-
-func NewThreeCar() *Cars {
-	cars := &Cars{
-		Car{},
-	}
-	return cars
-}

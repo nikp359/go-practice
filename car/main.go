@@ -5,10 +5,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 type App struct {
 	router *gin.Engine
+	store  *store.Store
 }
 
 func (a *App) routes() *gin.Engine {
@@ -18,15 +21,28 @@ func (a *App) routes() *gin.Engine {
 			"name": "Cars service",
 		})
 	})
-	r.GET("/cars", func(c *gin.Context) {
-		cars := store.NewThreeCar()
-		c.JSON(http.StatusOK, cars)
+	r.GET("/car", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "")
 	})
 	return r
 }
 
 func main() {
-	app := &App{}
+	db, err := gorm.Open("sqlite3", "cars.db")
+	if err != nil {
+		panic("failed to connect database" + err.Error())
+	}
+	defer db.Close()
+
+	st := &store.Store{
+		Db: db,
+	}
+
+	st.Migrate()
+
+	app := &App{
+		store: st,
+	}
 	app.router = app.routes()
 	app.router.Run("localhost:8080")
 }
