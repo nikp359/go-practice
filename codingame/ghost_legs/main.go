@@ -13,7 +13,10 @@ import (
 type GhostLegs struct {
 	Width  int
 	Height int
+	Map    Map
 }
+
+type Map [][]string
 
 func main() {
 	gl := readInput(os.Stdin)
