@@ -1,9 +1,0 @@
-GET http://localhost:3000/status
-
-###
-
-GET http://localhost:3000/products
-
-###
-
-POST http://localhost:3000/products/hover-shooters/feedback
