@@ -12,3 +12,4 @@
 *.out
 car/cars.db
 car/car
+gin-bin
