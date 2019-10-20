@@ -6,7 +6,22 @@ import (
 )
 
 func isValid(s string) bool {
-	return true
+	var st stack
+
+	for _, r := range s {
+		if isOpenParenthes(r) {
+			st.Push(r)
+		}
+
+		if isCloseParenthes(r) {
+			top := st.Pop()
+			if !isPairBrackets(top, r) {
+				return false
+			}
+		}
+	}
+
+	return st.Len() == 0
 }
 
 type stack []rune
@@ -29,6 +44,19 @@ func (s *stack) Pop() rune {
 	top := sl[n]
 	*s = sl[:n]
 	return top
+}
+
+func isPairBrackets(open, close rune) bool {
+	switch open {
+	case rune(40):
+		return close == rune(41)
+	case rune(91):
+		return close == rune(93)
+	case rune(123):
+		return close == rune(125)
+	}
+
+	return false
 }
 
 func isParenthes(r rune) bool {

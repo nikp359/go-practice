@@ -1,10 +1,55 @@
 package parentheses
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
+
+func TestIsValid(t *testing.T) {
+	tests := []struct {
+		brackets string
+		valid    bool
+	}{
+		{"", true},
+		{"()", true},
+		{"(]", false},
+		{"({}(){[{sdsdf sdfsdf d}]}[])", true},
+		{"[[[]d]]", true},
+		{"(){]}{}", false},
+		{"{{{{(}}}}}", false},
+		{"{", false},
+		{"}", false},
+	}
+
+	for _, test := range tests {
+		got := isValid(test.brackets)
+		want := test.valid
+		assert.Equal(t, want, got, fmt.Sprintf("Test string: %v", test.brackets))
+	}
+}
+
+func TestIsPairBrackets(t *testing.T) {
+	tests := []struct {
+		open  rune
+		close rune
+		valid bool
+	}{
+		{40, 41, true},   // ()
+		{91, 93, true},   //[]
+		{123, 125, true}, //{}
+		{41, 41, false},
+		{91, 92, false},
+		{93, 91, false},
+		{111, 112, false},
+	}
+
+	for _, test := range tests {
+		got := isPairBrackets(test.open, test.close)
+		assert.Equal(t, test.valid, got, fmt.Sprintf("Test string: %s %s", string(test.open), string(test.close)))
+	}
+}
 
 func TestRuneStr(t *testing.T) {
 	got, err := runeStr("a")
