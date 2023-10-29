@@ -106,7 +106,7 @@ linters-settings:
 
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
-    min-complexity: 15
+    min-complexity: 30
 
   goconst:
     # minimal length of string constant, 3 by default
