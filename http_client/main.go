@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"html"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -30,7 +29,7 @@ func startLoadTest(client *http.Client) {
 			panic(fmt.Sprintf("Got error: %v", err))
 		}
 		defer resp.Body.Close()
-		io.Copy(ioutil.Discard, resp.Body)
+		io.Copy(io.Discard, resp.Body)
 		log.Printf("Finished GET request #%v", count)
 		count++
 	}
