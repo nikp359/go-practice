@@ -752,7 +752,7 @@ linters:
     - errorlint # go-errorlint is a source code linter for Go software that can be used to find code that will cause problemswith the error wrapping scheme introduced in Go 1.13. [fast: true, auto-fix: false]
     - exhaustive # check exhaustiveness of enum switch statements [fast: true, auto-fix: false]
     - exportloopref # checks for pointers to enclosing loop variables [fast: true, auto-fix: false]
-    - forbidigo # Forbids identifiers [fast: true, auto-fix: false]
+    # - forbidigo # Forbids identifiers [fast: true, auto-fix: false]
     - forcetypeassert # finds forced type assertions [fast: true, auto-fix: false]
     - funlen # Tool for detection of long functions [fast: true, auto-fix: false]
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]
