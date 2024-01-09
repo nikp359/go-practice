@@ -18,21 +18,21 @@ func TestMaxVowels(t *testing.T) {
 			substringLength: 3,
 			wantMaxVowels:   3,
 		},
-		// {
-		// 	input:           "aeiou",
-		// 	substringLength: 2,
-		// 	wantMaxVowels:   2,
-		// },
-		// {
-		// 	input:           "leetcode",
-		// 	substringLength: 3,
-		// 	wantMaxVowels:   2,
-		// },
-		// {
-		// 	input:           "k",
-		// 	substringLength: 1,
-		// 	wantMaxVowels:   0,
-		// },
+		{
+			input:           "aeiou",
+			substringLength: 2,
+			wantMaxVowels:   2,
+		},
+		{
+			input:           "leetcode",
+			substringLength: 3,
+			wantMaxVowels:   2,
+		},
+		{
+			input:           "k",
+			substringLength: 1,
+			wantMaxVowels:   0,
+		},
 	}
 
 	for i, tc := range testCases {

@@ -4,11 +4,11 @@ func maxVowels(s string, k int) int {
 	vowels := countVowels(s[0:k])
 	max := vowels
 
-	if len(s) <= k+1 {
+	if len(s) <= k {
 		return max
 	}
 
-	for i, j := k, k+1; j < len(s); i, j = i+1, j+1 {
+	for i, j := 0, k; j < len(s); i, j = i+1, j+1 {
 		if isVowel(s[j]) {
 			vowels++
 		}
@@ -19,6 +19,10 @@ func maxVowels(s string, k int) int {
 
 		if vowels > max {
 			max = vowels
+		}
+
+		if k == max {
+			return max
 		}
 	}
 
