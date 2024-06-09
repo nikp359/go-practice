@@ -3,6 +3,8 @@ package list
 import (
 	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMergeTwoLists(t *testing.T) {
@@ -22,7 +24,7 @@ func TestMergeTwoLists(t *testing.T) {
 		t.Run(fmt.Sprintf("Case: %d", i), func(t *testing.T) {
 			got := mergeTwoLists(tc.list1, tc.list2)
 
-			t.Logf("got: %+v", got)
+			assert.Equal(t, tc.wantList, got)
 		})
 	}
 }
