@@ -13,8 +13,12 @@ func TestMergeIntervals(t *testing.T) {
 		want  [][]int
 	}{
 		{
-			input: [][]int{[]int{1, 3}, []int{2, 6}, []int{8, 10}, []int{15, 18}},
-			want:  [][]int{[]int{1, 6}, []int{8, 10}, []int{15, 18}},
+			input: [][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}},
+			want:  [][]int{{1, 6}, {8, 10}, {15, 18}},
+		},
+		{
+			input: [][]int{{1, 4}, {2, 3}},
+			want:  [][]int{{1, 4}},
 		},
 	}
 
